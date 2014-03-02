@@ -28,7 +28,7 @@ void init(){
             t = ( i - 1) / 2 * i ; 
         invs[i] = ( ( i * invs[i-1]  ) % BIG_PRIME +  ( fac[i-1] * t ) % BIG_PRIME ) % BIG_PRIME ;
     }
-    //for(i = 1 ; i <= 5 ; ++ i) printf("invs[%lld]=%lld\n", i, invs[i]) ;
+    //for(i = 1 ; i <= 6 ; ++ i) printf("invs[%lld]=%lld\n", i, invs[i]) ;
 }
 
 lld lowbit(lld x){
@@ -53,22 +53,30 @@ int main(){
     lld i , result = 0 ; 
     while(scanf("%lld", &n) !=EOF )
     {
-        for(i = 0 ; i < n; ++ i) scanf("%lld", &p[i]);
+        for(i = 1; i <= n; ++ i) scanf("%lld", &p[i]);
         result = 0 ;
         memset(bit, 0 , sizeof(bit)) ;
-        lld sv = 0 , t, pi_less , pi_less_unused;
-        for(i = 0 ; i < n; ++ i){
-           pi_less = sum(p[i]) ; 
-           pi_less_unused = p[i] - 1 - pi_less ; 
-           result = (result + pi_less_unused * invs[n - i]) % BIG_PRIME ; 
-           t = sv * pi_less_unused % BIG_PRIME ; 
-           t = t * fac[n - i - 1] % BIG_PRIME ; 
+        lld sv = 0 , t, b;
+        for(i = 1 ; i <= n; ++ i){
+           // from [i+1..n]
+           b = p[i] - 1 - sum(p[i]); 
+           result = (result +  b * invs[n - i]) % BIG_PRIME ; 
+           // from [i..i]
+           lld tb = b * (b - 1) / 2 % BIG_PRIME ;
+           result = (result + tb * fac[n - i] % BIG_PRIME ) % BIG_PRIME ;
+           // from [0..i-1]
+           t = ( sv * b % BIG_PRIME ) * fac[n - i] % BIG_PRIME ; 
            result = (result + t) % BIG_PRIME ; 
            //p[0], p[1], p[2]...p[i-1] participate  inversions (p[k], x); (0<=k<=i-1)
-           sv = (sv + (i - sum(p[i])) ) % BIG_PRIME ; 
+           sv = (sv + (p[i] - 1 - sum(p[i])) ) % BIG_PRIME ; 
            insert(p[i], 1) ;
+
+           //printf("###%lld\n", sv) ;
+           //printf("$ :%lld\n", result) ;
+
         }
-        printf("%lld\n",  result);
+        //printf("%lld\n", sv) ;
+        printf("%lld\n",  (result + sv) % BIG_PRIME );
         //memset(bit, 0 , sizeof(bit)) ; 
 
         //for(i = 0 ; i < n ; ++ i)   {
@@ -79,5 +87,6 @@ int main(){
         //}
         //printf("%lld\n", result) ;
     }
+    return 0 ;
 }
 
