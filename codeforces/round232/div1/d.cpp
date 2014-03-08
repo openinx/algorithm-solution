@@ -23,9 +23,9 @@ void init(){
     for(i = 2 ; i < MAXN; ++ i)  {
         lld t  ; 
         if (i % 2 == 0 )
-            t = i / 2 * (i - 1) ;
+            t = i / 2 * (i - 1) % BIG_PRIME ;
         else
-            t = ( i - 1) / 2 * i ; 
+            t = ( i - 1) / 2 * i % BIG_PRIME ; 
         invs[i] = ( ( i * invs[i-1]  ) % BIG_PRIME +  ( fac[i-1] * t ) % BIG_PRIME ) % BIG_PRIME ;
     }
     //for(i = 1 ; i <= 6 ; ++ i) printf("invs[%lld]=%lld\n", i, invs[i]) ;
@@ -37,13 +37,13 @@ lld lowbit(lld x){
 
 void insert(lld x, lld del){
     for(lld i = x ; i <= n ; i += lowbit(i))
-        bit[i] += del;
+        bit[i] = (bit[i] + del) % BIG_PRIME ;
 }
 
 lld sum(lld x){
     lld ans = 0 ;
     for(lld i = x; i>=1 ; i -=lowbit(i))
-        ans += bit[i] ; 
+        ans =  (ans + bit[i]) % BIG_PRIME ; 
     return ans ; 
 }
 
@@ -57,10 +57,11 @@ int main(){
         result = 0 ;
         memset(bit, 0 , sizeof(bit)) ;
         lld sv = 0 , t, b;
+
         for(i = 1 ; i <= n; ++ i){
            // from [i+1..n]
-           b = p[i] - 1 - sum(p[i]); 
-           result = (result +  b * invs[n - i]) % BIG_PRIME ; 
+           b = ( p[i] - 1 - sum(p[i]) )  % BIG_PRIME ; 
+           result = (result +  b * invs[n - i] % BIG_PRIME ) % BIG_PRIME ; 
            // from [i..i]
            lld tb = b * (b - 1) / 2 % BIG_PRIME ;
            result = (result + tb * fac[n - i] % BIG_PRIME ) % BIG_PRIME ;
