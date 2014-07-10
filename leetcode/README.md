@@ -107,6 +107,22 @@ BFS 然后按照步数DFS回溯找路径。
 * [Word Ladder ](https://oj.leetcode.com/problems/word-ladder/)
 BFS
 
+* [Valid Palindrome](https://oj.leetcode.com/problems/valid-palindrome/)
+水题
+
+* [Binary Tree Maximum Path Sum](https://oj.leetcode.com/problems/binary-tree-maximum-path-sum/)
+DP + 树遍历。 
+dp[i]表示以i为根节点的子树中，经过i节点的路径的最大和值。
+maxsum[i] 表示以i为根节点的子树中，路径最大的和值。 这条路径可能经过i节点，也可能不经过i节点。
+
+```
+dp[root] = max(root->val,
+               root->val + dp[root->left],
+               root->val + dp[root->right],
+               root->val + dp[root->left] + dp[root->right]);
+maxsum[root] = max( maxsum[root->left], maxsum[root->right*
+
+
 * [Insert Interval](https://oj.leetcode.com/problems/insert-interval/)
 * [Wildcard Matching](https://oj.leetcode.com/problems/wildcard-matching/)
 KMP + 贪心 假设*的个数为K, 复杂度O(K*N)
