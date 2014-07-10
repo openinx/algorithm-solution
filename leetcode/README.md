@@ -120,7 +120,23 @@ dp[root] = max(root->val,
                root->val + dp[root->left],
                root->val + dp[root->right],
                root->val + dp[root->left] + dp[root->right]);
-maxsum[root] = max( maxsum[root->left], maxsum[root->right*
+maxsum[root] = max( maxsum[root->left], maxsum[root->right], dp[root]);
+```
+
+* [Best Time to Buy and Sell Stock III](https://oj.leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/)
+将序列分割成两段，分别转化成[Best Time to Buy and Sell Stock](https://oj.leetcode.com/problems/best-time-to-buy-and-sell-stock/)这个问题的最优值。二者求和取最大值即答案。
+* [Best Time to Buy and Sell Stock II](https://oj.leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/)
+序列的连续递增增量之和即答案。
+* [Best Time to Buy and Sell Stock](https://oj.leetcode.com/problems/best-time-to-buy-and-sell-stock/)
+序列中两数之差最大值即答案。
+* [Triangle](https://oj.leetcode.com/problems/triangle/)
+DP + 滚动数组优化空间
+* [Pascal's Triangle II](https://oj.leetcode.com/problems/pascals-triangle-ii/)
+DP + 滚动数组优化空间。 Pascal数就是组合数，也可以称之为杨辉三角。这个图形推出一个组合公式: C(n,i) = C(n-1,i) + C(n-1,i-1) 
+* [Pascal's Triangle](https://oj.leetcode.com/problems/pascals-triangle/)
+同上
+
+
 
 
 * [Insert Interval](https://oj.leetcode.com/problems/insert-interval/)
