@@ -136,6 +136,23 @@ DP + 滚动数组优化空间。 Pascal数就是组合数，也可以称之为�
 * [Pascal's Triangle](https://oj.leetcode.com/problems/pascals-triangle/)
 同上
 
+* [Populating Next Right Pointers in Each Node II ](https://oj.leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/)
+为了达到O(1)的空间复杂度，根据k-1层的Next指针信息遍历，依次将k层的儿子组织成链表，直到到达最底层的叶子层。这个中间没有用到队列，因为next信息已经将k层的节点组织成队列了。
+* [Populating Next Right Pointers in Each Node ](https://oj.leetcode.com/problems/populating-next-right-pointers-in-each-node/)
+* [Distinct Subsequences](https://oj.leetcode.com/problems/distinct-subsequences/)
+DP + 滚动数组优化空间
+
+```cpp
+dp[0,j] = 1 ; (0<=j<=strlen(T))
+dp[i,0] = 1 ; (0<=i<=strlen(S))
+if(s[i-1] == s[j-1])
+    dp[i,j] = dp[i-1,j-1] + dp[i-1,j]
+else
+    dp[i,j] = dp[i-1,j]
+```
+
+* []
+
 
 
 
