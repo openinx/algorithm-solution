@@ -151,10 +151,55 @@ else
     dp[i,j] = dp[i-1,j]
 ```
 
-* []
+* [Flatten Binary Tree to Linked List ](https://oj.leetcode.com/problems/flatten-binary-tree-to-linked-list/)
+树遍历 + 链表拼接。 遍历子树得到的链表，应该同时保存链表的head和tail。 否则做左子树和右子树的链表拼接，会消耗O(N)的复杂度，导致算法最后的复杂度为O(N^2).
 
+* [Path Sum II](https://oj.leetcode.com/problems/path-sum-ii/) 
+给定一个值SUM, 和一颗树。求树上所有从根到叶子的路径，使得该路径所有节点值之和等于SUM. DFS遍历所有节点，并用vector保存当前路径上的点。
+* [Path Sum](https://oj.leetcode.com/problems/path-sum/) 
+同上
 
+* [Minimum Depth of Binary Tree](https://oj.leetcode.com/problems/minimum-depth-of-binary-tree/)
+求树的最小深度。用栈写一个？
 
+* [Balanced Binary Tree](https://oj.leetcode.com/problems/balanced-binary-tree/)
+判断一颗树是否平衡(两子树高度相差不超过1)
+
+* [Convert Sorted List to Binary Search Tree ](https://oj.leetcode.com/problems/convert-sorted-list-to-binary-search-tree/)
+链表转成高度平衡的二叉树，直接便利链表找中间点，然后递归构造BST，复杂度O(N*logN). 但有更好的写法, 复杂度O(N)： 
+```cpp
+TreeNode* buildTree(ListNode * &list, int start, int end){
+	if(start > end ) return NULL ;
+	int mid =  (start + end ) >> 1;
+	TreeNode* left = buildTree(list, start, mid-1);
+	TreeNode* root = new TreeNode(list->val);
+	root->left = left;
+	list=list->next;
+	TreeNode *right = buildTree(list, mid+1, end);
+	root->right = right;
+	return root;
+}
+
+TreeNode *sortedListToBST(ListNode *head) {
+    int n = 0 ; 
+    for(ListNode *p = head ; p != NULL ; p=p->next , ++n);
+   	if(n == 0) return NULL;
+    return buildTree(head, 0, n-1);
+}
+```
+
+* [Convert Sorted Array to Binary Search Tree](https://oj.leetcode.com/problems/convert-sorted-array-to-binary-search-tree/)
+将数组转成一颗平衡二叉树。O(N)
+
+* [Binary Tree Level Order Traversal II ](https://oj.leetcode.com/problems/binary-tree-level-order-traversal-ii/)
+按照层次依次输出树的各层节点。 BFS
+
+* [Construct Binary Tree from Inorder and Postorder Traversal](https://oj.leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)
+给定中序和后序还原二叉树。注意给定前序和后序，是无法还原二叉树的。比如前序为ABCD,后序为BCDA。 我们知道根节点为A,A的儿子们为BCD,但是不能确定左子树和右子树如何划分BCD，所以没法确定树的原型。 
+* [Construct Binary Tree from Preorder and Inorder Traversal](https://oj.leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
+给定前序和中序，还原二叉树。
+* [Maximum Depth of Binary Tree](https://oj.leetcode.com/problems/maximum-depth-of-binary-tree/)
+求树的最大深度。 用栈写一个？
 
 * [Insert Interval](https://oj.leetcode.com/problems/insert-interval/)
 * [Wildcard Matching](https://oj.leetcode.com/problems/wildcard-matching/)
