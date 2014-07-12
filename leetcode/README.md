@@ -201,6 +201,100 @@ TreeNode *sortedListToBST(ListNode *head) {
 * [Maximum Depth of Binary Tree](https://oj.leetcode.com/problems/maximum-depth-of-binary-tree/)
 求树的最大深度。 用栈写一个？
 
+* [Binary Tree Zigzag Level Order Traversal ](https://oj.leetcode.com/problems/binary-tree-zigzag-level-order-traversal/)
+按照层次序遍历二叉树。BFS可解。问题假设用两个栈而不用队列怎么解哦？
+
+* [Binary Tree Level Order Traversal](https://oj.leetcode.com/problems/binary-tree-level-order-traversal/)
+二叉树层次便利
+
+* [Symmetric Tree](https://oj.leetcode.com/problems/symmetric-tree/)
+判断二叉树是否左右对称。递归解决
+
+* [Same Tree](https://oj.leetcode.com/problems/same-tree/)
+判断两颗二叉树是否完全相同。类似于上题。
+
+* [Recover Binary Search Tree](https://oj.leetcode.com/problems/recover-binary-search-tree/)
+一颗BST有两个节点的val是颠倒的。怎么找到并纠正？
+
+* [Validate Binary Search Tree](https://oj.leetcode.com/problems/validate-binary-search-tree/)
+如何验证一颗树是否是BST。设计一个`int isBST(TreeNode*root, int &maxval, int &minval)`接口，表示每次递归解决root这颗子树的问题时，会把该子树所有节点的maxVal和minVal都找出来。这样父亲节点就能够通过比较自己的val和儿子的minval & maxval来判断是否是BST了。 
+
+* [Interleaving String](https://oj.leetcode.com/problems/interleaving-string/)
+DP: O(len(s1) * len(s2)) 滚动数组优化空间到O(min(len(s1) * len(s2)))
+
+```
+dp[0,0] = 1 
+dp[0,j] = (s3[j-1] == s2[j-1] && dp[0,j-1]) ; when (1<=j<=len2); 
+dp[i,0] = (s3[i-1] == s1[i-1] && dp[i-1,j]) ; when (1<=i<=len1);
+dp[i,j] = (s3[i+j-1] == s1[i-1] && dp[i-1][j]) | ( s3[i+j-1] == s2[j-1] && dp[i][j-1]) ;  when (1<=i<=len1 && 1<=j<=len2 )
+```
+
+* [Unique Binary Search Trees II](https://oj.leetcode.com/problems/unique-binary-search-trees-ii/)
+给定N，求出所有节点号为1..N的BST的树。DFS递归求解。
+
+* [Unique Binary Search Trees ](https://oj.leetcode.com/problems/unique-binary-search-trees/)
+求N个节点的BST总数。经典的[Catalan Number](http://en.wikipedia.org/wiki/Catalan_number) C(2n,n)/(n+1). 递推式为
+
+```
+h[0] = 1 
+h[1] = 1
+h[n] = h[0]*h[n-1] + h[1]*[n-2] + ... + h[n-1] * h[0] ; 
+```
+
+* [Restore IP Addresses](https://oj.leetcode.com/problems/restore-ip-addresses/)
+暴力水过, O(12^3)
+
+* [Reverse Linked List II](https://oj.leetcode.com/problems/reverse-linked-list-ii/)
+逆转链表的一段
+
+* [Subsets II ](https://oj.leetcode.com/problems/subsets-ii/)
+DFS
+
+
+* [Scramble String](https://oj.leetcode.com/problems/scramble-string/)
+
+* [Partition List](https://oj.leetcode.com/problems/partition-list/)
+链表实现QuickSort的select函数。
+
+* [Largest Rectangle in Histogram ](https://oj.leetcode.com/problems/largest-rectangle-in-histogram/)
+求给定序列组成的柱形图中最大长方形面积。(单调栈 OR 并查集)
+
+单调栈实现:
+
+```cpp
+int largestRectangleArea(vector<int> &height) {
+	stack<int> s ; 
+	height.push_back(0);
+	int i = 0, maxArea = 0 ;
+	while( i < height.size() ){
+		if(s.empty() || height[s.top()] <= height[i]){
+			s.push(i++);
+		}else{
+			int t = s.top(); s.pop();
+			maxArea = max(maxArea, height[t] * (s.empty() ? i: i-s.top()-1));
+		}
+	}
+	return maxArea;
+}
+```
+
+并查集实现：
+
+```cpp
+for(i = 1 ; i<=n; ++i)  scanf("%d",&h[i]);
+for(i = 1 ; i<=n; ++i)  r[i] = l[i] = i;
+h[0] = h[n +1] = -1;
+for(i = 1 ; i<=n; ++i)
+    while( h[i] <= h[ l[i] - 1 ] ) l[i] = l[ l[i] - 1 ];
+for(i = n ; i>= 1 ; --i)
+    while( h[i] <= h[ r[i] + 1 ] )  r[i] =r[ r[i] + 1 ];
+__int64 ans = 0;
+for( i = 1 ; i<=n; ++i)
+   ans  = max( ans , (__int64)(r[i] - l[i] + 1 ) * (__int64)h[i] );
+```
+
+
+
 * [Insert Interval](https://oj.leetcode.com/problems/insert-interval/)
 * [Wildcard Matching](https://oj.leetcode.com/problems/wildcard-matching/)
 KMP + 贪心 假设*的个数为K, 复杂度O(K*N)
