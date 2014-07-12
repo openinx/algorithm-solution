@@ -226,7 +226,9 @@ DP: O(len(s1) * len(s2)) 滚动数组优化空间到O(min(len(s1) * len(s2)))
 dp[0,0] = 1 
 dp[0,j] = (s3[j-1] == s2[j-1] && dp[0,j-1]) ; when (1<=j<=len2); 
 dp[i,0] = (s3[i-1] == s1[i-1] && dp[i-1,j]) ; when (1<=i<=len1);
-dp[i,j] = (s3[i+j-1] == s1[i-1] && dp[i-1][j]) | ( s3[i+j-1] == s2[j-1] && dp[i][j-1]) ;  when (1<=i<=len1 && 1<=j<=len2 )
+dp[i,j] = (s3[i+j-1] == s1[i-1] && dp[i-1][j]) |
+          (s3[i+j-1] == s2[j-1] && dp[i][j-1]) ; 
+          when (1<=i<=len1 && 1<=j<=len2 )
 ```
 
 * [Unique Binary Search Trees II](https://oj.leetcode.com/problems/unique-binary-search-trees-ii/)
