@@ -13,9 +13,9 @@ public:
 		int i , j; 
 		p[0] = -1;
 		for(i = 1; i < m ; ++ i){
-			j = p[i-1];
-			while(j>=0 && t[i] != t[j+1]) j = p[j];
-			p[i] = (t[i] == t[j+1] ? j+1: -1);
+			j = p[i-1] + 1;
+			while(j > 0 && t[i] != t[j]) j = p[j-1] + 1;
+			p[i] = (t[i] == t[j] ? j: -1);
 		}
 	}
 
@@ -29,7 +29,7 @@ public:
 		for(i = 0 ; i < n ; ++ i){
 			while(j > 0 && s[i] != t[j]) j = p[j-1] + 1;
 			if(s[i] == t[j]) j++;
-			if(j == m ) return s + i - m ; 
+			if(j == m ) return s + i - m + 1; 
 		}
 		return NULL;
 	}
