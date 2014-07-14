@@ -296,10 +296,13 @@ for( i = 1 ; i<=n; ++i)
 ```
 
 
-
 * [Insert Interval](https://oj.leetcode.com/problems/insert-interval/)
 * [Wildcard Matching](https://oj.leetcode.com/problems/wildcard-matching/)
 KMP + 贪心 假设*的个数为K, 复杂度O(K*N)
+
+* [Container With Most Water](https://oj.leetcode.com/problems/container-with-most-water/)
+DP ： 关键在于慧眼发现这样一个性质： 假设`3 5 2 4 3 5`这个序列, 两个端点，3和5。 对3来讲，最优解肯定是5，3不可能和其他的某个数达到最优解。所以3就排除掉了， 左端点右移，转化成一个较小规模的子问题了。 复杂度O(N)
+
 
 
 
