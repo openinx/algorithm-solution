@@ -298,7 +298,9 @@ for( i = 1 ; i<=n; ++i)
 
 * [Insert Interval](https://oj.leetcode.com/problems/insert-interval/)
 * [Wildcard Matching](https://oj.leetcode.com/problems/wildcard-matching/)
-KMP + 贪心 假设*的个数为K, 复杂度O(K*N)
+KMP + 贪心 假设*的个数为K, 复杂度O(K*N) 其实写个_看毛片算法_解这个问题真的是坑无数。比如最后一个'hi'和'*?'这种情况，‘*’不能贪婪匹配'hi'。 归纳起来，最后一个'*'是不能贪婪的，只要求'*'之后的字串能严格和主串的最后一段匹配即可。关于这个问题的更详细的各种解法，可参考[一个老外数十年的辛勤劳作](http://xoomer.virgilio.it/acantato/dev/wildcard/wildmatch.html)。 
+
+* [Pow(x, n)](https://oj.leetcode.com/problems/powx-n/)二分求P^n值。值得注意的是，当int n = -2147483648 时，调用函数abs(n) = 2147483648时，会导致INT溢出。 _这是调用int类型的abs函数道不尽说不完的坑啊。_
 
 * [Container With Most Water](https://oj.leetcode.com/problems/container-with-most-water/)
 DP ： 关键在于慧眼发现这样一个性质： 假设`3 5 2 4 3 5`这个序列, 两个端点，3和5。 对3来讲，最优解肯定是5，3不可能和其他的某个数达到最优解。所以3就排除掉了， 左端点右移，转化成一个较小规模的子问题了。 复杂度O(N)
