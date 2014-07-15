@@ -300,6 +300,9 @@ for( i = 1 ; i<=n; ++i)
 1. 将a放在一个hash表里面，然后查找C-a 是否在hash表内。 
 2. 设置一个左指针lptr，一个右指针rptr。 二者之和大于-C时， rptr左移。 小于-C时, lptr右移。比较trick的是对于序列`-2 0 1 1 2 2`这种情况，碰到第一个1时，`-2 0 1`不能组成三元组使得等于0，`-2 0 1 1`可以组成三元组等于0。所以碰到连续的相同的元素，只需要考虑连续数的最后一个数即可。 
 
+* [3Sum Closest](https://oj.leetcode.com/problems/3sum-closest/)
+类似[3Sum](https://oj.leetcode.com/problems/3sum/)的思路。可以证明：当`lptr + rptr > C`时, 不可能通过lptr左移使得abs(lptr+rptr-C)变小, 只能是rptr右移使之变小 。所以实现方法和[3Sum](https://oj.leetcode.com/problems/3sum/)一样。
+
 
 * [Insert Interval](https://oj.leetcode.com/problems/insert-interval/)
 * [Wildcard Matching](https://oj.leetcode.com/problems/wildcard-matching/)
@@ -309,6 +312,23 @@ KMP + 贪心 假设*的个数为K, 复杂度O(K*N) 其实写个_看毛片算法_
 
 * [Container With Most Water](https://oj.leetcode.com/problems/container-with-most-water/)
 DP ： 关键在于慧眼发现这样一个性质： 假设`3 5 2 4 3 5`这个序列, 两个端点，3和5。 对3来讲，最优解肯定是5，3不可能和其他的某个数达到最优解。所以3就排除掉了， 左端点右移，转化成一个较小规模的子问题了。 复杂度O(N)
+
+* [Merge k Sorted Lists](https://oj.leetcode.com/problems/merge-k-sorted-lists/)两种方法： 
+1. 两两合并复杂度为O(K*N), 假设K为要合并的链表的个数，N为K个链表的所有元素之和。
+2. 用一个元素个数为K的堆维护K个链表。复杂度为O(N*logK)。
+
+纠结了好一会儿堆的cmp重载。C++默认的堆是最大堆。
+
+```cpp
+class classcmp{
+public:
+	bool operator() (const ListNode* a, const ListNode* b)const{
+		return a->val > b->val ;
+	}
+};
+priority_queue<ListNode*, vector<ListNode*>, classcmp> que ;
+```
+
 
 
 
