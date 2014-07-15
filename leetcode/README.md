@@ -295,6 +295,11 @@ for( i = 1 ; i<=n; ++i)
    ans  = max( ans , (__int64)(r[i] - l[i] + 1 ) * (__int64)h[i] );
 ```
 
+* [3Sum](https://oj.leetcode.com/problems/3sum/)
+给定一个序列，求有多少个三元组使得(a+b+c=0). 对Array排序，枚举c，然后再一个有序序列中寻找两个数之和是否等于C。有两种方法： 
+1. 将a放在一个hash表里面，然后查找C-a 是否在hash表内。 
+2. 设置一个左指针lptr，一个右指针rptr。 二者之和大于-C时， rptr左移。 小于-C时, lptr右移。比较trick的是对于序列`-2 0 1 1 2 2`这种情况，碰到第一个1时，`-2 0 1`不能组成三元组使得等于0，`-2 0 1 1`可以组成三元组等于0。所以碰到连续的相同的元素，只需要考虑连续数的最后一个数即可。 
+
 
 * [Insert Interval](https://oj.leetcode.com/problems/insert-interval/)
 * [Wildcard Matching](https://oj.leetcode.com/problems/wildcard-matching/)
