@@ -329,8 +329,9 @@ public:
 priority_queue<ListNode*, vector<ListNode*>, classcmp> que ;
 ```
 
-
-
-
+* [Combination Sum](https://oj.leetcode.com/problems/combination-sum/)
+DFS
+* [Combination Sum II](https://oj.leetcode.com/problems/combination-sum-ii/)
+DFS: 对于`1 1 1 2 5 6 7 10`这种序列，防止出现重复的`1 1 2`这个序列很重要。其实只要保证选择的`1`全部都在`1 1 1`序列的最前端就可以了。当DFS到depth这个深度时，走没有选择`Element[depth]`这个元素的分支时，后面所有与`Element[depth]`相等的元素，就都不考虑放到解之中了。 走选择了`Element[depth]`这条分支时，按照正常递归下去就OK了。 这样可以保证无重复解。
 
 
