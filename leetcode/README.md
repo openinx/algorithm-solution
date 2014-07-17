@@ -343,7 +343,7 @@ DFS: 对于`1 1 1 2 5 6 7 10`这种序列，防止出现重复的`1 1 2`这个�
 * [N-Queens](https://oj.leetcode.com/problems/n-queens/) N皇后问题，求所有解。
 * [N-Queens II ](https://oj.leetcode.com/problems/n-queens-ii/) N皇后问题， 求解数。尝试几种写法：DFS; 迭代；位运算。 位运算代码最少，如下（答案调用dfs(0,0,0,n,sum)，sum值即答案）：
 
-```
+```cpp
 #define LOWBIT(x) ((x)&(-x))
 void dfs(int row, int ld, int rd, int n, int &sum){
     int M = (1<<n)-1, pos, p;
