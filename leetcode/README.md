@@ -356,3 +356,56 @@ void dfs(int row, int ld, int rd, int n, int &sum){
     }
 }
 ```
+
+* [Add Binary](https://oj.leetcode.com/problems/add-binary/) 水题一枚。 调程序一个BUG很不好找： 
+
+```cpp
+(temp & 1) + '0' // a = temp & 1 ; b = a + '0'  ;
+temp & 1 + '0'   // a = 1 + '0'  ; b = temp & 1 ; 
+```
+
+* [Sort Colors](https://oj.leetcode.com/problems/sort-colors/)
+
+```cpp
+# start
+0001111********2222
+   ^   ^       ^
+   r   w       b 
+
+# case.0
+00001111*******2222
+    ^   ^      ^
+    r   w      b 
+
+# case.1
+00011111*******2222
+   ^    ^      ^
+   r    w      b 
+
+# case.2
+0001111*******22222
+   ^   ^      ^
+   r   w      b 
+```
+
+智力题。看上图这种状态，有r,w,b三个指针。[0,r)的都是0，[r,w)都是1, [b,+oo)都是2。 现在考虑w指针所在的数，分三种情况：
+(0) w指的数为0,交换w和r所在的数，r和w指针同时右移。
+(1) w指的数为1,w右移;
+(2) w指的数为2,b左移，交换w和b指针所在的数;
+
+```cpp
+void sortColors(int A[], int n) {
+    for (int r = 0, w = 0, b = n; w < b; )
+      if (A[w] == 0)
+        swap(A[r++], A[w++]);
+      else if (A[w] == 2)
+        swap(A[--b], A[w]);
+      else
+        w++;
+  }
+
+```
+看到该题[背景](http://www.iis.sinica.edu.tw/~scm/ncs/2010/10/dutch-national-flag-problem/)顿时吓傻
+
+
+
