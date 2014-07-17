@@ -366,6 +366,26 @@ temp & 1 + '0'   // a = 1 + '0'  ; b = temp & 1 ;
 
 * [Sort Colors](https://oj.leetcode.com/problems/sort-colors/)
 
+智力题。看下图这种状态，有r,w,b三个指针。[0,r)的都是0，[r,w)都是1, [b,+oo)都是2。 现在考虑w指针所在的数，分三种情况：
+(0) w指的数为0,交换w和r所在的数，r和w指针同时右移。
+(1) w指的数为1,w右移;
+(2) w指的数为2,b左移，交换w和b指针所在的数;
+
+```cpp
+void sortColors(int A[], int n) {
+    for (int r = 0, w = 0, b = n; w < b; )
+      if (A[w] == 0)
+        swap(A[r++], A[w++]);
+      else if (A[w] == 2)
+        swap(A[--b], A[w]);
+      else
+        w++;
+  }
+
+```
+看到该题[背景](http://www.iis.sinica.edu.tw/~scm/ncs/2010/10/dutch-national-flag-problem/)顿时吓傻
+
+
 ```cpp
 # start
 0001111********2222
@@ -388,24 +408,24 @@ temp & 1 + '0'   // a = 1 + '0'  ; b = temp & 1 ;
    r   w      b 
 ```
 
-智力题。看上图这种状态，有r,w,b三个指针。[0,r)的都是0，[r,w)都是1, [b,+oo)都是2。 现在考虑w指针所在的数，分三种情况：
-(0) w指的数为0,交换w和r所在的数，r和w指针同时右移。
-(1) w指的数为1,w右移;
-(2) w指的数为2,b左移，交换w和b指针所在的数;
+* [First Missing Positive](https://oj.leetcode.com/problems/first-missing-positive/)
+智力题，找出一个无序序列中第一个缺失的正整数。要求时间O(N)，空间O(1). 其实只要将每个在1～N之前的整数，把i这个数值存放到A[i]这里存放。然后遍历即可。代码如下,分析while循环每次swap都会把A[i]这个数放到
+A[i]-1这个Index对应的位置存放，最多有N个数，所以for循环内的while进行的swap操作之和不超过N. 摊分下来每个for操作都swap一次。总的复杂度为O(N).
 
 ```cpp
-void sortColors(int A[], int n) {
-    for (int r = 0, w = 0, b = n; w < b; )
-      if (A[w] == 0)
-        swap(A[r++], A[w++]);
-      else if (A[w] == 2)
-        swap(A[--b], A[w]);
-      else
-        w++;
-  }
-
+int firstMissingPositive(int A[], int n) {
+	for(int i = 0 ; i < n ; ++ i)
+		while(A[i] > 0 && A[i] <= n && A[A[i]-1] != A[i])
+			swap(A[A[i]-1], A[i]);
+	for(int i = 0 ; i < n ; ++ i)
+		if(A[i] != i + 1)
+			return i + 1;
+	return n + 1;
+}
 ```
-看到该题[背景](http://www.iis.sinica.edu.tw/~scm/ncs/2010/10/dutch-national-flag-problem/)顿时吓傻
+
+
+
 
 
 
