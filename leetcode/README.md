@@ -340,3 +340,19 @@ DFS: 对于`1 1 1 2 5 6 7 10`这种序列，防止出现重复的`1 1 2`这个�
 * [Permutations ](https://oj.leetcode.com/problems/permutations/) 生成序列[1,2,3..,n]的全排列。
 * [permutations-ii](https://oj.leetcode.com/problems/permutations-ii/) 生成有重复元素的的全排列，要求不能输出重复的排列。 我用的方法是： 对每个数都用了一个cnt计数器，当递归到当前深度时，试探所有cnt值大于1的数，然后将当前深度的值填为该数。
 
+* [N-Queens](https://oj.leetcode.com/problems/n-queens/) N皇后问题，求所有解。
+* [N-Queens II ](https://oj.leetcode.com/problems/n-queens-ii/) N皇后问题， 求解数。尝试几种写法：DFS; 迭代；位运算。 位运算代码最少，如下（答案调用dfs(0,0,0,n,sum)，sum值即答案）：
+
+```
+#define LOWBIT(x) ((x)&(-x))
+void dfs(int row, int ld, int rd, int n, int &sum){
+    int M = (1<<n)-1, pos, p;
+    if(row == M) {  ++ sum; return;} 
+    pos = ((row|ld|rd) & M) ^ M; 
+    while(pos){
+        p = LOWBIT(pos);
+        dfs(row|p, (ld|p)<<1, (rd|p)>>1, n, sum);
+        pos -= pos & p;
+    }
+}
+```
