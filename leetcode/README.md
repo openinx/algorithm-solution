@@ -465,7 +465,7 @@ double findKth(int a[], int m, int b[], int n, int k){
 }
 ```
 
-* [Longest Palindromic Substring](https://oj.leetcode.com/problems/longest-palindromic-substring/) [Manacher’s Algorithm](http://leetcode.com/2011/11/longest-palindromic-substring-part-ii.html)算法。能在O(N)的复杂度内找到一个字符串的最长回文子串。假设用动态规划或者暴力，复杂度都为O(N^2).
+* [Longest Palindromic Substring](https://oj.leetcode.com/problems/longest-palindromic-substring/) [Manacher’s Algorithm](http://leetcode.com/2011/11/longest-palindromic-substring-part-ii.html)算法。能在O(N)的复杂度内找到一个字符串的最长回文子串。假设用动态规划或者暴力，复杂度都为O(N^2). 后缀数组也能解决这个问题。
 
 
 
