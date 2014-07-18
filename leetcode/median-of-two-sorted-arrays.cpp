@@ -21,7 +21,7 @@ public:
 	}
 
     double findMedianSortedArrays(int A[], int m, int B[], int n) {
-    	if( (n+m) & 1 == 0 ) {
+    	if( (n+m) % 2 == 0 ) {
     		return (findkth(A, m, B, n , (m+n)/2) + findkth(A, m, B, n, (m+n)/2 + 1)) * 0.5;
     	}else{
     		return findkth(A, m, B, n, (m + n)/2 + 1);
