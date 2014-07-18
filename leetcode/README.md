@@ -409,8 +409,7 @@ void sortColors(int A[], int n) {
 ```
 
 * [First Missing Positive](https://oj.leetcode.com/problems/first-missing-positive/)
-智力题，找出一个无序序列中第一个缺失的正整数。要求时间O(N)，空间O(1). 其实只要将每个在1～N之前的整数，把i这个数值存放到A[i]这里存放。然后遍历即可。代码如下,分析while循环每次swap都会把A[i]这个数放到
-A[i]-1这个Index对应的位置存放，最多有N个数，所以for循环内的while进行的swap操作之和不超过N. 摊分下来每个for操作都swap一次。总的复杂度为O(N).
+智力题，找出一个无序序列中第一个缺失的正整数。要求时间O(N)，空间O(1). 其实只要将每个在1～N之前的整数，把i这个数值存放到A[i]这里存放。然后遍历即可。代码如下,复杂度分析：while循环每次swap都会把A[i]这个数放到A[i]-1这个Index对应的位置存放，最多有N个数，所以for循环内所有while进行的swap操作之和不超过N. 摊分下来每个for操作都swap一次。总的复杂度为O(N).
 
 ```cpp
 int firstMissingPositive(int A[], int n) {
@@ -424,8 +423,46 @@ int firstMissingPositive(int A[], int n) {
 }
 ```
 
+* [Anagrams](https://oj.leetcode.com/problems/anagrams/)  anagrams这个单词真是个费解的单词。指的是对应字符个数相等的两个单词，称为anagrams. 例如aaaab和baaaa,aaaba都是anagrams。
+每个单词字符排个序，最小字典序唯一。直接hash表判重即可。复杂度O(N*M*logM), 单词最大长度为M， 共有N个单词。
 
 
+* [Edit Distance](https://oj.leetcode.com/problems/edit-distance/)
+求两个字符串的最小编辑距离，从S串到T串，有三种操作： insert; delete; replace. dp[i,j]表示s[1..i]到t[1..j]的最小编辑距离:
 
+```cpp
+dp[0,0] = 0 ; 
+dp[0,j] = j (1<=j<=len(t))
+dp[i,0] = i (1<=i<=len(s))
+dp[i,j] = min(dp[i-1,j] + 1, dp[i,j-1] + 1, dp[i-1,j-1] + 1) // delete, insert, replace
+if(s[i] == t[j]) dp[i,j] = min(dp[i,j], dp[i-1,j-1]); 
+```
+
+* [Trapping Rain Water](https://oj.leetcode.com/problems/trapping-rain-water/)智力题。关键考虑每个i对答案的贡献值求和。能用一次遍历并且用O(1)的空间计算出答案吗？  这里还有个[悲剧的故事](http://qandwhat.apps.runkite.com/i-failed-a-twitter-interview/)
+
+* [Set Matrix Zeroes ](https://oj.leetcode.com/problems/set-matrix-zeroes/) matrix[0,i]和matrix[i,0]保存maxtrix[i,j]的0状态,另设两个遍历row,col记录matrix[0,0..n-1]和matrix[0..n-1,0]是否为0.即可。
+
+
+* [Median of Two Sorted Arrays](https://oj.leetcode.com/problems/median-of-two-sorted-arrays/)两个有序序列A[0..M-1]和B[0..N-1]找第k小的数问题。假设A[k/2-1]<B[k/2-1]，那么A[k/2-1]排在合并序列中的序号小于K。那么搜索第K值的时候，可以丢弃掉`A[k/2-1]`之前（包括自己）的一段。题目找的是第`（m+n)/2`小，每次减少一半的规模，所以总复杂都`log(m+n)`.
+
+```cpp
+double findKth(int a[], int m, int b[], int n, int k){
+	//always assume that m is equal or smaller than n
+	if (m > n)
+		return findKth(b, n, a, m, k);
+	if (m == 0)
+		return b[k - 1];
+	if (k == 1)
+		return min(a[0], b[0]);
+	//divide k into two parts
+	int pa = min(k / 2, m), pb = k - pa;
+	if (a[pa - 1] < b[pb - 1])
+		return findKth(a + pa, m - pa, b, n, k - pa);
+	else if (a[pa - 1] > b[pb - 1])
+		return findKth(a, m, b + pb, n - pb, k - pb);
+	else
+		return a[pa - 1];
+}
+```
 
 
