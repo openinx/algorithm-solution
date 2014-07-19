@@ -468,6 +468,61 @@ double findKth(int a[], int m, int b[], int n, int k){
 * [Longest Palindromic Substring](https://oj.leetcode.com/problems/longest-palindromic-substring/) [Manacher’s Algorithm](http://leetcode.com/2011/11/longest-palindromic-substring-part-ii.html)算法。能在O(N)的复杂度内找到一个字符串的最长回文子串。假设用动态规划或者暴力，复杂度都为O(N^2). 后缀数组也能解决这个问题。
 
 
+* [Regular Expression Matching ](https://oj.leetcode.com/problems/regular-expression-matching/)没找到什么线性算法。 暴力算法来源于leetcode，假设`s=abbbbbbbbbbbbbbbbbb`, `t=ab*cd`这样的话。可能会出现如下情况：当有一个`*`字符时，最坏的情况下会达到O（n*m),这还的用KMP算法去做字串匹配. 当多个 `\*`字符时，就是`\*`的指数级复杂度了。
+
+```
+s = abbbbbbbbbbbbbbbbbb
+     ^
+t = acd
+
+s = abbbbbbbbbbbbbbbbbb
+      ^
+t = a cd
+
+s = abbbbbbbbbbbbbbbbbb
+       ^
+t = a  cd
+
+s = abbbbbbbbbbbbbbbbbb
+        ^
+t = a   cd
+
+....
+```
+
+
+* [Scramble String ](https://oj.leetcode.com/problems/scramble-string/) DFS 类似卡特兰解空间搜索加上减枝，减枝技巧包括： 两串长度相等； 两串无序hash值相等; 两串同类字符数必须相等。
+复杂度分析： 
+
+```
+h[n] = 2 * sum( h[i] * h[n-i] ) (1<= i < n )
+```
+
+* [Recover Binary Search Tree ](https://oj.leetcode.com/problems/recover-binary-search-tree/) 
+
+假设一个序列 , 其中 8 和 14 被误交换了。 如图， 导致序列会有两个`>` , 记录第1个`>`的前驱和第2个`>`的后继两个指针，交换即可.
+
+```
+# noraml
+
+  < < <  <  <  <
+1 5 8 10 11 14 23 
+
+# missing swap
+
+  < <  >  <  > < 
+1 5 14 10 11 8 23
+    ^        ^
+
+# after
+
+  < <  >  <  > < 
+1 5 8 10 11 14 23
+    ^        ^
+``` 
+
+
+* [Minimum Window Substring](https://oj.leetcode.com/problems/minimum-window-substring/)  字符串滑动窗口， 维护4个变量： left 左端点 ； right 右端点 ; cur[256] 各字符当前窗口内的计数值； curlen 当前窗口内目标串字符的个数。 时间复杂度O(N). 类似的题： [Substring with Concatenation of All Words ](https://oj.leetcode.com/problems/substring-with-concatenation-of-all-words/), [Longest Substring Without Repeating Characters ](https://oj.leetcode.com/problems/longest-substring-without-repeating-characters/) . 
 
 
 
