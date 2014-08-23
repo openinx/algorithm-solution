@@ -7,17 +7,13 @@
 
 using namespace std;
 
-int steps[1<<16], prev[1<<16];
+int steps[1<<16], prev[1<<16], q[1<<16], head, tail;
 
-void solve(int start, int end){
-    if(start == end) {
-        cout << "0" << endl; return ;
-    }
-    memset(prev, -1 , sizeof(prev));
-    queue<int>  q;
-    q.push(start); prev[start] = 0 ;
-    while( !q.empty() ){
-        int current = q.front(); q.pop();
+void solve(int start){
+    head = tail = 0 ;
+    q[tail ++ ] = start; prev[start] = 0 ;
+    while(head < tail){
+        int current = q[head++]; 
         for(int i = 0 ; i < 4; ++ i)
             for(int j = 0 ; j < 4 ; ++ j){
                 int next = current;
@@ -29,35 +25,31 @@ void solve(int start, int end){
                 if(prev[next] == -1){
                     prev[next] = current;
                     steps[next] = 4 * i + j;
-                    q.push(next);
+                    q[tail++] = next;
                 }
             }
-    }
-    stack<int> paths;
-    while(end != start){
-        paths.push(steps[end]);
-        end = prev[end];
-    }
-    cout << paths.size() << endl;
-    while(!paths.empty()){
-        int x = paths.top(); paths.pop();
-        cout << x / 4 + 1 << " " << x % 4  + 1<< endl;
     }
 }
 
 int main(){
     char c ;
     int cnt = 0, beg = 0; 
-    /*
+    memset(prev, -1 , sizeof(prev));
+    solve(0);
     while(cnt < 16)
         if((c = getchar()) && (c == '+' || c == '-')){
             if(c == '+')
                 beg |= (1<<cnt);
             ++ cnt;
         }
-        */
-    for(int i = 0 ; i < (1<<16); ++ i){
-        solve(i, 0);
+    vector<int> ret;
+    while(beg != 0){
+        ret.push_back(steps[beg]);
+        beg = prev[beg];
+    }
+    cout << ret.size() << endl;
+    for(int i = ret.size() -1 ; i >= 0 ; --i){
+        cout << ret[i] / 4 + 1  << " " << ret[i] % 4 + 1 << endl;
     }
     return 0 ;
 }
