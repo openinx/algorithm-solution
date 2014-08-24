@@ -15,16 +15,20 @@ public:
             rank[i] = 0 ;
             siz[i] = 1;
         }
+        gsize = n ; 
     }
     int find(int x){
         if(x != father[x]){
             father[x] = find(father[x]);
+            siz[x] = siz[father[x]];
         }
         return father[x];
     }
-    int join(int x, int y){
+    void join(int x, int y){
         x = find(x);
         y = find(y);
+        if(x == y) return ;
+        -- gsize;
         if(rank[x] > rank[y]){
             father[y] = x;
             siz[x] +=  siz[y];
@@ -40,8 +44,11 @@ public:
         x = find(x);
         return siz[x];
     }
+    int group_size(){
+        return gsize;
+    }
 private:
-    int n , father[maxn], rank[maxn], siz[maxn];
+    int n , gsize, father[maxn], rank[maxn], siz[maxn];
 };
 
 class BitTree{
@@ -81,15 +88,22 @@ int main(){
         d.init(n);
         bt.init();
         for(int i = 1 ; i <=n ; ++ i){
+            bt.add(1, +1);
+        }
+        for(int i = 1 ; i <=m ; ++ i){
             scanf("%d", &c);
             if(c == 0){
                 scanf("%d%d", &x, &y);
+                x = d.find(x) ; 
+                y = d.find(y) ;
+                if(x == y) continue;
                 bt.add(d.size(x), -1);
                 bt.add(d.size(y), -1);
                 d.join(x, y);
                 bt.add(d.size(x), +1);
             }else if(c == 1){
                 scanf("%d", &x);
+                x = d.group_size() + 1 - x ; 
                 printf("%d\n", bt.getkth(x));
             }
         }
