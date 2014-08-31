@@ -1,45 +1,38 @@
 #include <iostream>
-#include <math.h>
-#include <time.h>
 #include <stdio.h>
-#include <stdlib.h>
+#include <string.h>
+
+const static int maxn = 100001 ; 
 
 using namespace std;
 
-#define MAXN 100005
-
-int n ; 
-double a[MAXN][5] ;
+int n;
+double x[maxn][5];
 
 int main(){
-    int x , y, check;
-    double l , r , mid;
-    scanf("%d", &n);
-    srand(time(NULL));
-    for(int i = 0 ; i < n ; ++ i){
-        for(int j = 0 ; j < 5 ; ++ j)
-            scanf("%lf", &a[i][j]);
-    }
-    l = 0.0 ; r = 1e20;
-    for(int i = 0 ; i < 100 ; ++ i){
-        mid = (l + r ) / 2.0;
-        check = true;
-        for(int k = 0 ; check && k < 100000 ; ++ k){
-            x = rand() % n ; 
-            y = rand() % n ; 
-            double sum = 0 ; 
-            for(int j = 0 ; j < 5 ; ++j)
-                sum +=  fabs(a[x][j] - a[y][j]);
-            if(sum > mid){
-                check = false;
-            }
-        }
-        if(check){
-            r = mid;
-        }else{
-            l = mid;
-        }
-    }
-    printf("%0.2lf\n", mid);
-    return 0;
+	double maxv, minv, ans = 0 ;
+	scanf("%d", &n );
+	for(int i = 0 ; i < n ; ++ i){
+		for(int j = 0 ; j < 5 ; ++ j)
+			scanf("%lf", &x[i][j]);
+	}
+	ans = -1e100;
+	for(int k = 0 ; k < (1<<5) ; ++ k){
+		maxv  = -1e100; 
+		minv  = +1e100;
+		for(int i = 0 ; i < n ; ++ i){
+			double sumx = 0; 
+			for(int j = 0 ; j < 5 ; ++ j)
+				if(k & (1<<j)){
+					sumx = sumx + x[i][j];
+				}else{
+					sumx = sumx - x[i][j];
+				}
+			maxv = max(maxv, sumx);
+			minv = min(minv, sumx);
+		}
+		ans = max(ans, maxv - minv);
+	}
+	printf("%0.2lf\n", ans);
+	return 0 ;
 }
